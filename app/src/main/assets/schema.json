@@ -1,0 +1,47 @@
+{
+  "packageName": "com.carstage.app",
+  "appDescription": "A car karaoke stage. While the car is parked, the cabin lights, climate and seats react to the occupants singing along to music played by another app.",
+  "invokeWord": "노래방",
+  "version": "0.1.0",
+  "actionCalls": [
+    {
+      "type": "function",
+      "function": {
+        "name": "OPEN_STAGE",
+        "description": "Opens the karaoke stage so the car reacts to the user's singing. Use when the user wants to sing, start karaoke, or open the stage.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "component": "activity"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "START_BATTLE",
+        "description": "Starts a two-person singing battle between the driver seat and the front passenger seat. Available only while the car is parked.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "component": "activity"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "FINISH_SONG",
+        "description": "Ends the current song and shows the finale with the excitement score.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "component": "activity"
+      }
+    }
+  ]
+}

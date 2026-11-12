@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The release build while it leaves the cabin alone (app/build.gradle.kts releaseDrivesCabin):
+     none of the control permissions, which Pleos App Market has not agreed for this app, nor the
+     light reads only the control needs. The other reads (gear, seats, battery, trip, defroster and
+     wipers) stay. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="pleos.car.permission.CONTROL_CAR_LIGHTS" tools:node="remove" />
+    <uses-permission android:name="pleos.car.permission.CONTROL_CAR_CLIMATE" tools:node="remove" />
+    <uses-permission android:name="pleos.car.permission.CONTROL_CAR_SEATS" tools:node="remove" />
+    <uses-permission android:name="pleos.car.permission.CAR_LIGHTS" tools:node="remove" />
+
+</manifest>

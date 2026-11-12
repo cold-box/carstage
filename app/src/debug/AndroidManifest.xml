@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Development builds only: to reach the playback helper on 127.0.0.1 (DevPlayback, scripts/playback-tap.sh). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Capturing what the other apps play needs a foreground service of type mediaProjection
+         (audio/PlaybackCaptureService). Development builds only until Pleos allows its notification
+         (PlaybackProjection.askIntent). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+
+    <application>
+        <!-- Runs only while a stage uses the capture the user allowed of what other apps play, so the echo canceller can take the music out (docs/09 "에코 제거"). -->
+        <service
+            android:name="com.carstage.app.audio.PlaybackCaptureService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+    </application>
+
+</manifest>

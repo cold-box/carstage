@@ -1,0 +1,11 @@
+# Pinned Android SDK packages for macOS on Apple Silicon (verified 2026-10-22).
+# scripts/bootstrap.sh installs exactly these; scripts/doctor.sh checks them.
+# An installed package matches when sha1(<package dir>/<marker>) equals marker_sha1.
+# package.xml for each package is toolchain/package-xml/<path with ';' replaced by '_'>.xml.
+#
+# path	version	zip_sha1	url	marker	marker_sha1
+platform-tools	37.0.1	6ae73f4de6452dc57e62ec02b68eed92a4c21661	https://dl.google.com/android/repository/platform-tools_r37.0.1-darwin.zip	source.properties	68914d9d28ffae49ebfe443b8f1068d18e63e413
+emulator	37.2.12	3af4fe44ce82b3d88ae5678a53735f27ad729c15	https://dl.google.com/android/repository/emulator-darwin_aarch64-16428233.zip	source.properties	0a9927c25314b74374ed9fabaf810acac1b4f636
+build-tools;35.0.0	35.0.0	93ab8ce91230e067b5add4bfa79919c52b27f072	https://dl.google.com/android/repository/build-tools_r35_macosx.zip	source.properties	0cd9417cb95e75bea7e26120653b33469ad7d4c1
+platforms;android-35	2	0bb560a90a7a2cbd0dd8348224d518b638fe7949	https://dl.google.com/android/repository/platform-35_r02.zip	source.properties	bcdf420a261a49139d4c2edfff692ba448d78eed
+system-images;android-34;pleos_car_emulator;arm64-v8a	2.1.0	24d28eb2f18eba5e87c861a7eb2bdccebb049419	https://nexus-playground.pleos.ai/repository/raw-releases/connect-avd/2.x/crp_car_arm64_emulator.zip	build.prop	f1740704908126d55b51a9c9385fa06787715e64

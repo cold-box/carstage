@@ -1,0 +1,22 @@
+.DS_Store
+
+# Gradle / Android
+.gradle/
+.kotlin/
+build/
+local.properties
+captures/
+*.apk
+*.aab
+!apk/*.apk
+
+# IDE
+.idea/
+*.iml
+
+# Claude Code personal files
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Python bytecode from scripts/lib (the virtual cabin)
+__pycache__/
