@@ -7,7 +7,7 @@
 **[심사용 APK](apk/cold-box_CarStage_release.apk)** · **[시연 영상 (1분 53초)](https://github.com/cold-box/carstage/releases/download/v0.1.0/cold-box_CarStage_demo.mp4)** · **[실행 방법](#실행-방법-pleos-connect-emulator-210)** · **[음악 앱 없이 바로 보기](#음악-앱-없이-바로-보기)** · **[문서](docs/README.md)**
 
 <p align="center"><img src="docs/images/stage-glow.gif" width="640" alt="음악만 흐를 때의 청록빛이 따라 부르기 시작하면 자홍빛으로 바뀌는 CarStage 무대"></p>
-<p align="center"><sub>Pleos Connect Emulator 2.1.0에서 실제로 동작하는 화면입니다. 음악만 흐를 때는 청록빛이고, 따라 부르기 시작하면 목소리에 맞춰 자홍빛으로 밝아집니다.</sub></p>
+<p align="center"><sub>음악만 흐를 때는 청록빛, 따라 부르면 자홍빛 · Pleos Connect Emulator 2.1.0 실행 화면</sub></p>
 
 ## 왜 만들었나요
 
@@ -34,13 +34,13 @@ CarStage에서는 노래를 부르면 차가 빛과 소리로 답하고, 그 답
 | **출발하면 닫고, 정차하면 다시 묻기** | |
 | ![출발해서 Pleos가 앱을 가린 화면과 다시 정차했을 때의 "이어서 부를까요?"](docs/images/application/scene-5.jpg) | |
 
-실내 조명·공조·시트 연동은 Pleos Vehicle 제어 권한이 승인되면 켜지는 기능입니다. 연출 엔진은 차량 출력까지 구현되어 있고, 심사용 APK는 같은 반응을 화면 빛, 효과음, MC 음성, 실내 그림 미리보기로 보여 줍니다. 그래서 위 장면의 실내 그림 위에는 "미리보기 · 차가 허용하면 실내가 이렇게 반응해요"가 보입니다.
+실내 조명·공조·시트는 Pleos의 차량 제어 권한이 승인되면 실제 차가 반응합니다. 그 전에는 화면의 실내 그림이 같은 반응을 미리보기로 보여 줍니다.
 
 ## 심사용 APK
 
 - 위치: [`apk/cold-box_CarStage_release.apk`](apk/cold-box_CarStage_release.apk) (같은 파일이 [Release v0.1.0](https://github.com/cold-box/carstage/releases/tag/v0.1.0)에도 있습니다)
-- 팀 서명 키로 서명한 release 빌드입니다. Pleos 앱 심사는 승인되지 않은 차량 권한을 선언하거나 그 API를 부르는 앱을 통과시키지 않으므로, 이 빌드는 차량 제어 권한(`CONTROL_CAR_*`, `CAR_LIGHTS`)을 선언하지 않고 제어 코드도 넣지 않았습니다. 제어 권한을 협의하면 빌드 스위치(`app/build.gradle.kts`의 `releaseDrivesCabin`)를 켜서 다시 빌드합니다.
-- 화면 빛, 효과음, MC 음성, 흥 점수, 2인 대결, 차량 상태 읽기(기어, 충전, 착석, 밤)는 모두 동작합니다.
+- 팀 서명 키로 서명한 release 빌드입니다.
+- 승인되지 않은 차량 권한을 선언한 앱은 Pleos 앱 심사를 통과하지 못하므로, 차량 제어 권한(`CONTROL_CAR_*`, `CAR_LIGHTS`)과 제어 코드를 뺐습니다. 권한이 승인되면 빌드 스위치 `releaseDrivesCabin`(`app/build.gradle.kts`) 하나로 켭니다.
 
 ## 실행 방법 (Pleos Connect Emulator 2.1.0)
 
@@ -56,7 +56,7 @@ CarStage에서는 노래를 부르면 차가 빛과 소리로 답하고, 그 답
 
 ### 음악 앱 없이 바로 보기
 
-에뮬레이터의 기본 음악 앱은 곡을 재생하지 않습니다. 그래서 Gleo가 CarStage의 음성 함수를 부를 때와 같은 명령으로 무대를 엽니다.
+에뮬레이터의 기본 음악 앱은 곡을 재생하지 않으므로, Gleo 음성 실행과 같은 명령을 `adb`로 보내 무대를 엽니다.
 
 1. 첫 화면 위의 [기본 | 대결]에서 **[대결]**을 고릅니다. [기본]은 음악이 나올 때만 Gleo 실행을 받습니다.
 2. 무대를 엽니다. MC가 인사하고, 화면 가장자리와 실내 그림이 빛나기 시작합니다.
@@ -74,7 +74,6 @@ CarStage에서는 노래를 부르면 차가 빛과 소리로 답하고, 그 답
 
 5. 2인 대결은 `-a START_BATTLE`로 시작합니다. 운전석과 조수석이 차례로 10초 이상 부르고 차례마다 `FINISH_SONG`을 보내면, 드럼롤과 빛이 좌우를 오가는 결과 발표 뒤 승자 쪽이 빛납니다.
 
-2026-11-10에 에뮬레이터에서 음악 앱 없이 이 순서(무대 열기, 곡 끝내기, 대결 두 차례, 발표)를 끝까지 확인했습니다([docs/05](docs/05-emulator-findings.md)).
 
 ### 차량 상태에 따라 바뀌는 것
 
@@ -106,7 +105,7 @@ Pleos Connect Virtual Console에서 차량 상태를 바꾸며 봅니다.
 | Vehicle SDK 2.3.2 (읽기) | 기어(P일 때만 무대를 엶), 성에 제거·와이퍼(작동 중이면 공조 연출을 건너뜀), 전기차 배터리와 충전(상태 줄, MC 인사, 배터리 보호, 충전 완료 때 마지막 곡 제안), 앞좌석 착석(대결 제안), 주행 기록(MC 인사) |
 | Vehicle SDK 2.3.2 (제어, 승인 후) | 앰비언트 조명의 색·밝기, 운전석·조수석 독서등, 좌석별 온도와 풍량, 시트 통풍. 무대가 끝나면 모두 시작 전 값으로 되돌리고, 앱이 강제 종료되어도 다음 실행 때 복원합니다 |
 | TextToSpeech SDK 3.3.1 | MC 음성과 대결 발표. `ON_DEVICE` 모드라 네트워크가 필요 없고, 효과음과 같은 오디오 포커스 규칙을 따릅니다 |
-| Gleo App Schema | `OPEN_STAGE`(무대 열기), `START_BATTLE`(대결), `FINISH_SONG`(곡 끝내기). 응답은 한국어로 하고, MC가 이어서 말할 때는 Gleo가 효과음만 냅니다 (`app/src/main/assets/schema.json`) |
+| Gleo App Schema | `OPEN_STAGE`(무대 열기), `START_BATTLE`(대결), `FINISH_SONG`(곡 끝내기)을 등록해 "노래 무대 열어줘" 같은 말로 앱을 다룹니다(`app/src/main/assets/schema.json`) |
 | Android Automotive 표준 | 주행 규제(`CarUxRestrictionsManager`), 밤(`NIGHT_MODE`), 차의 연료 종류, 다른 앱의 음악 재생 상태와 노래 목록(`MediaBrowserService`) |
 | Pleos 디자인 기준 | Pleos 글자 체계, 76dp 이상의 터치 영역, 4.5:1 이상의 글자 대비, 누를 때의 클릭 소리와 진동, 앱 자리를 둘로 나눈 세로 한 칸(841dp) 배치 |
 
@@ -154,14 +153,14 @@ flowchart LR
 ## 품질과 검증
 
 - **단위 테스트 661개**(72개 파일): 오디오 분석, 흥 점수, 연출 혼합, 안전 규칙, 복원, 대결, MC 문장, 화면 배치를 차 없이 시험합니다.
-- **lint 경고 0개 유지**: 경고가 하나라도 있으면 검사가 실패합니다(`warningsAsErrors`). 출시 빌드 lint는 빠진 제어 권한을 쓰는 코드가 남지 않았는지도 찾습니다.
-- **에뮬레이터 회귀 시험**: `scripts/regress.sh`가 Gleo 열기·대결·닫기, 출발로 닫기와 복원, 강제 종료 뒤 복원, 밤 조명 낮춤, MC 켜고 끄기, 주행 시간 인사, 화면을 벗어날 때 닫기, 통화(`--call`)를 시나리오마다 로그로 PASS/FAIL 판정합니다.
-- **에뮬레이터 검증 기록**: Pleos Connect Emulator 2.1.0에서 SDK의 지원 범위, 실패 코드, 지연 시간, 화면 배치를 날짜와 로그 요약으로 남겼습니다([docs/05](docs/05-emulator-findings.md)).
-- **고정한 개발 환경**: SDK 패키지와 Pleos 이미지를 sha1로 고정해, 새 맥에서도 스크립트 하나로 같은 환경을 만듭니다(아래 "소스에서 빌드하기").
+- **lint 경고 0개**: 경고가 하나라도 있으면 검사가 실패합니다(`warningsAsErrors`). 출시 빌드 lint는 빠진 제어 권한을 쓰는 코드가 남지 않았는지도 찾습니다.
+- **에뮬레이터 회귀 시험**: `scripts/regress.sh`가 Gleo 실행과 대결, 출발할 때의 닫기와 복원, 강제 종료 뒤 복원, 밤 조명 등 시나리오 10개를 앱 로그로 판정합니다.
+- **에뮬레이터 검증 기록**: Pleos Connect Emulator 2.1.0에서 SDK마다 되는 것과 안 되는 것, 실패 코드, 지연 시간을 로그와 함께 기록했습니다([docs/05](docs/05-emulator-findings.md)).
+- **고정한 개발 환경**: SDK 패키지와 Pleos 이미지를 sha1로 고정해, 새 맥에서도 스크립트 하나로 같은 환경을 만듭니다.
 
 ## 소스에서 빌드하기
 
-개발 환경은 **Apple Silicon 맥(macOS)** 기준으로 고정했습니다. Pleos 이미지를 arm64용으로 고정했고, 검증도 이 환경에서 했습니다.
+개발 환경은 **Apple Silicon 맥(macOS)** 기준이고, 아래 버전으로 고정했습니다.
 
 | 구성 요소 | 고정한 버전 | 고정한 곳 |
 |---|---|---|
@@ -223,7 +222,7 @@ Android Studio에서는 위의 1~3단계를 마친 뒤 저장소 폴더를 열�
 
 ## 개발 방식
 
-이 저장소는 Claude Code와 함께 개발했습니다. 레포 루트의 `CLAUDE.md`와 `.claude/rules/`(영어)에 빌드 명령, 구조, 지켜야 할 규칙(무대는 한 입구로만 열고 닫음, 새 연출 대상에는 안전 판단을 반드시 정함, 연출이 끝나면 반드시 복원)과 제품 원칙을 적어 두었습니다. 기능 하나마다 브랜치와 PR을 만들고, 코드를 바꾸면 커밋 전에 리뷰 플러그인(`/pr-review-toolkit:review-pr`)으로 리뷰한 뒤, 충돌·빌드·테스트·에뮬레이터 확인·문서 반영을 확인해 머지했습니다.
+Claude Code와 함께 개발했습니다. `CLAUDE.md`와 `.claude/rules/`(영어)에 빌드 명령, 구조, 제품 원칙과 꼭 지킬 규칙을 적어 두었습니다. 예를 들어 무대는 한 입구로만 열고 닫고, 새 연출 대상에는 안전 규칙을 반드시 정하고, 연출이 끝나면 차의 설정을 반드시 되돌립니다. 기능마다 브랜치와 PR을 만들고, 코드 리뷰와 빌드·테스트·에뮬레이터 확인을 거쳐 머지했습니다.
 
 ## 출처
 
@@ -234,9 +233,19 @@ Android Studio에서는 위의 1~3단계를 마친 뒤 저장소 폴더를 열�
 | 앱의 파일 | 쓰는 곳 | 원본 | 만든 사람 | 출처 | 라이선스 |
 |---|---|---|---|---|---|
 | `app/src/main/res/raw/sfx_applause.ogg` | 피날레의 "좋음"과 "최고"(팡파레와 함께) | `Well Done CCBY3.ogg` (박수, 4.1초) | qubodup | [OpenGameArt "Well Done"](https://opengameart.org/content/well-done) | CC0 (2024-10-05에 CC-BY 3.0에서 바뀜, 파일 이름의 "CCBY3"는 옛 표기) |
-| `app/src/main/res/raw/sfx_applause_short.ogg` | 피날레의 "기본" | 위 박수의 0.8~2.4초(앞 0.05초는 서서히 키우고 끝 0.4초는 서서히 줄임). 만든 명령: `ffmpeg -ss 0.8 -t 1.6 -i app/src/main/res/raw/sfx_applause.ogg -af "afade=t=in:st=0:d=0.05,afade=t=out:st=1.2:d=0.4,aresample=48000" -ac 1 -c:a libopus -b:a 96k app/src/main/res/raw/sfx_applause_short.ogg` | qubodup | 위와 같음 | CC0 |
+| `app/src/main/res/raw/sfx_applause_short.ogg` | 피날레의 "기본" | 위 박수의 0.8~2.4초를 잘라 앞뒤를 서서히 키우고 줄임(아래 명령) | qubodup | 위와 같음 | CC0 |
 | `app/src/main/res/raw/sfx_drumroll.ogg` | 2인 대결 발표, 좌우가 번갈아 켜질 때 | `Drum_Roll_Intro.ogg` (드럼롤, 4.0초, 원본 5.1채널) | Iwan Sounds and DIY | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Drum_Roll_Intro.ogg) | CC0 1.0 |
 | `app/src/main/res/raw/sfx_fanfare.ogg` | 2인 대결 승자 발표, 피날레의 "최고"(박수와 함께) | `jingles_SAX07.ogg` (Music Jingles 묶음의 색소폰 징글, 1.7초) | Kenney (kenney.nl) | [Kenney "Music Jingles"](https://kenney.nl/assets/music-jingles) | CC0 1.0 |
+
+<details><summary>짧은 박수를 만든 명령 (박수를 다시 만들면 이것도 다시 만듭니다)</summary>
+
+```bash
+ffmpeg -ss 0.8 -t 1.6 -i app/src/main/res/raw/sfx_applause.ogg \
+  -af "afade=t=in:st=0:d=0.05,afade=t=out:st=1.2:d=0.4,aresample=48000" \
+  -ac 1 -c:a libopus -b:a 96k app/src/main/res/raw/sfx_applause_short.ogg
+```
+
+</details>
 
 ### 코드 출처
 
